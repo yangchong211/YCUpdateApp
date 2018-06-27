@@ -1,12 +1,16 @@
 package com.ycbjie.ycupdatelib.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,7 +128,12 @@ public abstract class BaseDialogFragment extends DialogFragment {
         return TAG;
     }
 
-    public void show(FragmentManager fragmentManager) {
+    public void show(Context context , FragmentManager fragmentManager) {
+        if (context instanceof Activity) {
+            if (((Activity) context).isFinishing()) {
+                return;
+            }
+        }
         if(fragmentManager!=null){
             show(fragmentManager, getFragmentTag());
         }else {

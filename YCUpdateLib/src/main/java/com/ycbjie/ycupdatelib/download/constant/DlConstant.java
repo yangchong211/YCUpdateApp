@@ -22,13 +22,13 @@ public class DlConstant {
     @Retention(RetentionPolicy.SOURCE)
     public @interface RequestCode {
         //下载状态
-        int loading = 10;
+        int loading = 10001;
         //暂停状态
-        int pause = 11;
+        int pause = 10002;
         //停止状态
-        int stop = 12;
+        int stop = 10003;
         //错误状态
-        int error = 13;
+        int error = 10004;
     }
 
 

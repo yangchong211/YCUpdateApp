@@ -4,7 +4,7 @@ import android.support.annotation.IntRange;
 
 
 import com.ycbjie.ycupdatelib.download.constant.DlStatus;
-import com.ycbjie.ycupdatelib.download.utils.DebugUtils;
+import com.ycbjie.ycupdatelib.download.utils.UpdateUtils;
 
 import java.io.Serializable;
 
@@ -81,7 +81,7 @@ public class FileInfo implements Serializable{
                 ", filePath='" + filePath + '\'' +
                 ", size=" + size +
                 ", downloadLocation=" + downloadLocation +
-                ", downloadStatus=" + DebugUtils.getStatusDesc(downloadStatus) +
+                ", downloadStatus=" + UpdateUtils.getStatusDesc(downloadStatus) +
                 '}';
     }
 }

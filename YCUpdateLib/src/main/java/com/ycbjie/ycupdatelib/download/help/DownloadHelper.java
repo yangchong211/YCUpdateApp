@@ -21,7 +21,6 @@ public class DownloadHelper {
     private static final String TAG = "DownloadHelper";
     private volatile static DownloadHelper SINGLE;
     private static ArrayList<RequestInfo> requests = new ArrayList<>();
-    private File dlFile;
 
     private DownloadHelper(){}
 
@@ -46,6 +45,7 @@ public class DownloadHelper {
             LogUtils.w("没有下载任务可供执行");
             return;
         }
+        //开启服务service
         Intent intent = new Intent(context, DownloadService.class);
         intent.putExtra(DlConstant.Inner.SERVICE_INTENT_EXTRA, requests);
         context.startService(intent);
@@ -62,7 +62,6 @@ public class DownloadHelper {
      * @return                      DownloadHelper自身 (方便链式调用)
      */
     public DownloadHelper addTask(String url, File file, @Nullable String action){
-        this.dlFile = file;
         RequestInfo requestInfo = createRequest(url, file, action, DlConstant.RequestCode.loading);
         LogUtils.i(TAG, "addTask() requestInfo=" + requestInfo);
         requests.add(requestInfo);
@@ -79,7 +78,6 @@ public class DownloadHelper {
      * @return                      DownloadHelper自身 (方便链式调用)
      */
     public DownloadHelper pauseTask(String url, File file, @Nullable String action){
-        this.dlFile = file;
         RequestInfo requestInfo = createRequest(url, file, action, DlConstant.RequestCode.pause);
         LogUtils.i(TAG, "pauseTask() -> requestInfo=" + requestInfo);
         requests.add(requestInfo);
@@ -90,7 +88,7 @@ public class DownloadHelper {
     /**
      * 设定该模块是否输出 debug信息
      */
-    private DownloadHelper setDebug(boolean isDebug){
+    public DownloadHelper setDebug(boolean isDebug){
         LogUtils.setDebug(isDebug);
         return this;
     }
@@ -98,16 +96,11 @@ public class DownloadHelper {
 
     private RequestInfo createRequest(String url, File file, String action,
                                       @DlConstant.RequestCode int dictate){
-        this.dlFile = file;
         RequestInfo request = new RequestInfo();
         request.setDictate(dictate);
         request.setDownloadInfo(new DownloadInfo(url, file, action));
+        LogUtils.i(TAG, "createRequest=" + file);
         return request;
     }
-
-    public File getDlFile(){
-        return dlFile;
-    }
-
 
 }

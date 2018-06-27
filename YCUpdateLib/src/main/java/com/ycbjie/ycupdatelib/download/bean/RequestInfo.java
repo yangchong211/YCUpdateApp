@@ -2,24 +2,19 @@ package com.ycbjie.ycupdatelib.download.bean;
 
 
 import android.support.annotation.IntRange;
-
 import com.ycbjie.ycupdatelib.download.constant.DlConstant;
-import com.ycbjie.ycupdatelib.download.utils.DebugUtils;
-
 import java.io.Serializable;
 
 
 public class RequestInfo implements Serializable{
 
+    //下载的控制状态
     @IntRange(from = DlConstant.RequestCode.loading, to = DlConstant.RequestCode.pause)
-    private int dictate;   //下载的控制状态
+    private int dictate;
 
     private DownloadInfo downloadInfo;
 
-    public RequestInfo() {
-    }
-
-
+    public RequestInfo() {}
 
     public int getDictate() {
         return dictate;
@@ -37,12 +32,4 @@ public class RequestInfo implements Serializable{
         this.downloadInfo = downloadInfo;
     }
 
-
-    @Override
-    public String toString() {
-        return "RequestInfo{" +
-                "dictate=" + DebugUtils.getRequestDictateDesc(dictate) +
-                ", downloadInfo=" + downloadInfo +
-                '}';
-    }
 }

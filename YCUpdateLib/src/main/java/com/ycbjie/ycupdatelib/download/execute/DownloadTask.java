@@ -185,7 +185,8 @@ public class DownloadTask implements Runnable{
             dbHolder.saveFile(mFileInfo);
             context.sendBroadcast(intent);
         } catch (Exception e){
-            LogUtils.e(TAG, "下载过程发生失败");
+            LogUtils.e(TAG, "下载过程发生失败"+e.getLocalizedMessage());
+            mFileInfo.setDownloadStatus(DlStatus.FAIL);
             dbHolder.saveFile(mFileInfo);
             context.sendBroadcast(intent);
             e.printStackTrace();

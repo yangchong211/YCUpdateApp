@@ -130,25 +130,25 @@ public class LogUtils {
 
         StringBuilder classNameSb = new StringBuilder();
 
-        /**
+        /*
          * 我们在这里并没有使用 比较简单的方式来获取。
          * StackTraceElement[] stackTrace = new Throwable().getStackTrace();
          * stackTrace[3].getClassName()
          * stackTrace[3].getMethodName( )
-         *
          * 原因是那样简单写,没办法 正确的得到 内部类的 一些信息。
          * 所以我们遍历了调用栈,采用硬编码来判断
          */
         for (StackTraceElement element : stackTrace){
             classNameSb.delete(0, classNameSb.length());
             classNameSb.append(element.getClassName());
-            if (classNameSb.indexOf("com.yaoxiaowen.download")>=0
+            if (classNameSb.indexOf("com.yc.download")>=0
                     && !classNameSb.toString().contains("LogUtils")){
                 int index = classNameSb.lastIndexOf(".");
                 sb.append(classNameSb.subSequence(index+1, classNameSb.length()));
                 sb.append(" ");
-                sb.append(element.getMethodName() + "()");
-                sb.append(" " + element.getLineNumber() + " ");
+                sb.append(element.getMethodName());
+                sb.append("()");
+                sb.append(" ").append(element.getLineNumber()).append(" ");
                 break;
             }
         }

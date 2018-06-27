@@ -25,12 +25,10 @@ import java.util.concurrent.TimeUnit;
 public class DownloadService extends Service{
 
     public static final String TAG = "DownloadService";
-
     public static boolean canRequest = true;
-
     //关于线程池的一些配置
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
-    private static final int CORE_POOL_SIZE = Math.max(3, CPU_COUNT/2);
+    private static final int CORE_POOL_SIZE = Math.max( 3, CPU_COUNT/2);
     private static final int MAX_POOL_SIZE =  CORE_POOL_SIZE * 2;
     private static final long KEEP_ALIVE_TIME  = 0L;
 
@@ -52,13 +50,12 @@ public class DownloadService extends Service{
         if (canRequest){
             LogUtils.i(TAG, "onStartCommand() -> 启动了service服务 intent=" + intent + "\t this=" + this);
             canRequest = false;
-
             if (null!=intent && intent.hasExtra(DlConstant.Inner.SERVICE_INTENT_EXTRA)){
                 try {
-                    ArrayList<RequestInfo> requesetes =
-                            (ArrayList<RequestInfo>)intent.getSerializableExtra(DlConstant.Inner.SERVICE_INTENT_EXTRA);
-                    if (null != requesetes && requesetes.size()>0){
-                        for (RequestInfo request : requesetes){
+                    ArrayList<RequestInfo> requests = (ArrayList<RequestInfo>)
+                            intent.getSerializableExtra(DlConstant.Inner.SERVICE_INTENT_EXTRA);
+                    if (null != requests && requests.size()>0){
+                        for (RequestInfo request : requests){
                             executeDownload(request);
                         }
                     }
@@ -72,7 +69,11 @@ public class DownloadService extends Service{
         return super.onStartCommand(intent, flags, startId);
     }
 
-    //Todo  除了简单的synchronized, 是否有更好的方式来进行加锁呢
+    /**
+     * 除了简单的synchronized, 是否有更好的方式来进行加锁呢
+     *
+     * @param requestInfo                  requestInfo
+     */
     private synchronized void executeDownload(RequestInfo requestInfo){
         DownloadInfo mDownloadInfo = requestInfo.getDownloadInfo();
 
@@ -103,8 +104,7 @@ public class DownloadService extends Service{
                         dbHolder.deleteFileInfo(mDownloadInfo.getUniqueId());
                     }
                 }
-            }//end of "  null != mFileInfo "
-
+            }
             //创建一个下载任务
             if (requestInfo.getDictate() == DlConstant.RequestCode.loading){
                 task = new DownloadTask(this, mDownloadInfo, dbHolder);

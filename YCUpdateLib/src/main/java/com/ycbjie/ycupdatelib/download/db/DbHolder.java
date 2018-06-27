@@ -13,6 +13,7 @@ import com.ycbjie.ycupdatelib.download.constant.DlConstant;
 import java.io.File;
 
 public class DbHolder {
+
     private Context context;
     private SQLiteDatabase mDb;
 
@@ -55,7 +56,9 @@ public class DbHolder {
 
 
     public FileInfo getFileInfo(String id){
-        Cursor cursor = mDb.query(DlConstant.Db.NAME_TABLE, null, " " + DlConstant.Db.id + " = ? ", new String[]{id}, null, null, null);
+        Cursor cursor = mDb.query(DlConstant.Db.NAME_TABLE, null,
+                " " + DlConstant.Db.id + " = ? ", new String[]{id},
+                null, null, null);
         FileInfo downloadFile = null;
         while (cursor.moveToNext()){
             downloadFile = new FileInfo();

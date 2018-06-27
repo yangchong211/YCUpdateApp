@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
         android:padding="10dp"
-        android:text="版本更新"/>
+        android:text="版本更新，一般更新"/>
 
 
     <TextView
@@ -25,6 +25,15 @@
         android:layout_marginTop="20dp"
         android:background="@color/colorAccent"
         android:padding="10dp"
-        android:text="删除文件"/>
+        android:text="版本更新，强制更新"/>
+
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
+        android:padding="10dp"
+        android:text="版本更新，强制更新"/>
 
 </LinearLayout>

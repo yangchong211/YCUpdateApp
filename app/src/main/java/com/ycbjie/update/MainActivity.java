@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         findViewById(R.id.tv_2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

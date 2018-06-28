@@ -101,5 +101,10 @@ public static void installNormal(Context context, String apkPath , String pathNa
 
 ### 2.注意要点
 
+
 ### 3.效果展示
+<image src="https://github.com/yangchong211/YCUpdateApp/blob/master/image/1001.jpg" width=300/>
+<image src="https://github.com/yangchong211/YCUpdateApp/blob/master/image/1002.jpg" width=300/>
+<image src="https://github.com/yangchong211/YCUpdateApp/blob/master/image/1003.jpg" width=300/>
+<image src="https://github.com/yangchong211/YCUpdateApp/blob/master/image/1004.jpg" width=300/>
 

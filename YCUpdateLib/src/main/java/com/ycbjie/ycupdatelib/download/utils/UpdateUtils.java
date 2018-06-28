@@ -130,7 +130,7 @@ public class UpdateUtils {
      * 需要使用 fileProvider 机制来访问、打开 APK 文件。
      * 普通安装
      * @param context                   上下文
-     * @param apkPath                   path
+     * @param apkPath                   path，文件路径
      * @param pathName                  你的包名
      */
     public static void installNormal(Context context, String apkPath , String pathName) {

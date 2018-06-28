@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
                  * @param packName                  包名
                  */
                 UpdateFragment updateFragment = new UpdateFragment(false,desc,firstUrl,"apk1",pathName);
+                //弹出弹窗
                 updateFragment.show(MainActivity.this , getSupportFragmentManager());
                 //获取下载文件的路径
                 String filePath = updateFragment.getFilePath();

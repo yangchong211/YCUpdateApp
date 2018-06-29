@@ -4,7 +4,15 @@ package com.ycbjie.ycupdatelib.download.bean;
 import java.io.File;
 import java.io.Serializable;
 
-
+/**
+ * <pre>
+ *     @author yangchong
+ *     blog  :
+ *     time  : 2017/8/9
+ *     desc  :
+ *     revise:
+ * </pre>
+ */
 public class DownloadInfo implements Serializable{
 
     private String url;

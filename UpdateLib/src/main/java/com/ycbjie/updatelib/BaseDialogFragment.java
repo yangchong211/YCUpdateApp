@@ -1,34 +1,29 @@
-package com.ycbjie.ycupdatelib.dialog;
+package com.ycbjie.updatelib;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.ycbjie.ycupdatelib.R;
-
-
 
 /**
- * <pre>
- *     @author yangchong
- *     blog  :
- *     time  : 2017/8/9
- *     desc  : 自定义布局弹窗
- *     revise:
- * </pre>
+ * ================================================
+ * 作    者：杨充
+ * 版    本：1.0
+ * 创建日期：2017/8/9
+ * 描    述：自定义布局弹窗
+ * 修订历史：
+ * ================================================
  */
 public abstract class BaseDialogFragment extends DialogFragment {
 

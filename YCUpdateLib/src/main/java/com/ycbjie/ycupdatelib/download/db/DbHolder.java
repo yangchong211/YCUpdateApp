@@ -12,6 +12,15 @@ import com.ycbjie.ycupdatelib.download.constant.DlConstant;
 
 import java.io.File;
 
+/**
+ * <pre>
+ *     @author yangchong
+ *     blog  :
+ *     time  : 2017/8/9
+ *     desc  : db
+ *     revise:
+ * </pre>
+ */
 public class DbHolder {
 
     private Context context;

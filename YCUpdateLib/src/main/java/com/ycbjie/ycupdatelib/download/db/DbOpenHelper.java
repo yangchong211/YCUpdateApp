@@ -16,7 +16,7 @@ import com.ycbjie.ycupdatelib.download.utils.LogUtils;
  */
 public class DbOpenHelper extends SQLiteOpenHelper{
 
-    public static final String TAG = "DbOpenHelper";
+    private static final String TAG = "DbOpenHelper";
 
     public DbOpenHelper(Context context) {
         super(context, DlConstant.Db.NAME_DB, null, getVersionCode(context));

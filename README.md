@@ -24,7 +24,7 @@
 
 ### 2.使用介绍
 #### 2.1 关于库导入
-- 在build.gradle中直接导入：compile 'cn.yc:YCUpdateLib:1.0.1'
+- 在build.gradle中直接导入：compile 'cn.yc:YCUpdateLib:1.0.2'
 
 
 #### 2.2 使用说明

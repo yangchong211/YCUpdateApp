@@ -110,7 +110,7 @@ public static void installNormal(Context context, String apkPath , String pathNa
 
 
 ### 3.注意要点
-- 注意需要申请读写权限
+- 注意需要申请读写权限，如果你要使用，可以自定定义通知栏下载UI布局，可以自己设置弹窗UI。这里就不适用正式项目中的UI和图标，图标是使用别人的，请勿商用。
 
 
 

@@ -115,7 +115,6 @@ public static void installNormal(Context context, String apkPath , String pathNa
 
 
 ### 4.效果展示
-- 如图所示
 ![image](https://upload-images.jianshu.io/upload_images/4432347-e1d32a7fd02832f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![image](https://upload-images.jianshu.io/upload_images/4432347-1879cbf17fbe05fd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![image](https://upload-images.jianshu.io/upload_images/4432347-3ea6614052d7e54f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)

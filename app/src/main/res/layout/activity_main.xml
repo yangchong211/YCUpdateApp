@@ -34,6 +34,16 @@
         android:layout_marginTop="20dp"
         android:background="@color/colorAccent"
         android:padding="10dp"
-        android:text="版本更新，强制更新"/>
+        android:text="版本更新，静默更新"/>
+
+
+    <TextView
+        android:id="@+id/tv_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
+        android:padding="10dp"
+        android:text="版本更新，清楚所有下载文件"/>
 
 </LinearLayout>

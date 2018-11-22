@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/UpdateLib/UpdateLib.iml" filepath="$PROJECT_DIR$/UpdateLib/UpdateLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/YCUpdateApp.iml" filepath="$PROJECT_DIR$/YCUpdateApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/YCUpdateLib/YCUpdateLib.iml" filepath="$PROJECT_DIR$/YCUpdateLib/YCUpdateLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />

@@ -1,1 +1,1 @@
-include ':app', ':YCUpdateLib', ':UpdateLib'
+include ':app', ':YCUpdateLib'

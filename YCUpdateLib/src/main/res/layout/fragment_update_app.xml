@@ -15,14 +15,14 @@
         <ImageView
             android:id="@+id/iv_top"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/pic_popup_new_version_update"/>
+            android:src="@mipmap/lib_update_app_top_bg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="175dp"
-            android:background="@drawable/shape_white_bg_update_10bg"
+            android:layout_height="210dp"
+            android:background="@drawable/shape_white_update_bottom_10bg"
             android:orientation="vertical">
 
 
@@ -52,7 +52,7 @@
                 android:layout_marginRight="20dp"
                 android:id="@+id/progress"
                 android:visibility="invisible"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="2dp" />

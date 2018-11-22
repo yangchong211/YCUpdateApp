@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.ycbjie.update"
-        minSdkVersion 15
-        targetSdkVersion 26
+        minSdkVersion 16
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -20,7 +20,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    //compile project(path: ':YCUpdateLib')
-    compile 'cn.yc:YCUpdateLib:1.0.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+//    compile project(path: ':YCUpdateLib')
+    compile 'cn.yc:YCUpdateLib:1.0.2'
 }

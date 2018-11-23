@@ -1,8 +1,10 @@
 package com.ycbjie.update;
 
 import android.Manifest;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,10 +24,34 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE};
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("MainActivity","onDestroy");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e("MainActivity","onStop");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e("MainActivity","onPause");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        },3000);
 
         PermissionUtils.init(this);
         boolean granted = PermissionUtils.isGranted(mPermission);

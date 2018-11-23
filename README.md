@@ -28,11 +28,13 @@
 - 当下载完成后，再次弹窗，则会先判断本地是否已经下载，如果下载则直接提示安装
 - 支持设置自定义下载文件路径，如果不设置，则直接使用lib中的路径【sd/apk/downApk目录下】
 - 当apk下载失败，异常，错误等状态，支持重启下载任务。功能十分强大，已经用于正式app多时，你采用拿来主义使用即可，欢迎提出问题。
+- 弹窗DialogFragment异常时调用onSaveInstanceState保存状态，重启时取出状态
+
 
 
 ### 2.使用介绍
 #### 2.1 关于库导入
-- 在build.gradle中直接导入：compile 'cn.yc:YCUpdateLib:1.0.2'
+- 在build.gradle中直接导入：compile 'cn.yc:YCUpdateLib:1.0.6'
 
 
 #### 2.2 使用说明
@@ -123,6 +125,11 @@ public static void installNormal(Context context, String apkPath , String pathNa
 
 
 ### 4.效果展示
+#### 4.1 版本更新流程图，正式项目的流程，仅供参考
+![image](https://upload-images.jianshu.io/upload_images/4432347-e7ba321e3201564c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+#### 4.2 效果图展示
 ![image](https://upload-images.jianshu.io/upload_images/4432347-e1d32a7fd02832f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![image](https://upload-images.jianshu.io/upload_images/4432347-1879cbf17fbe05fd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![image](https://upload-images.jianshu.io/upload_images/4432347-3ea6614052d7e54f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -141,6 +148,10 @@ public static void installNormal(Context context, String apkPath , String pathNa
 - v1.0.0 更新于2017年8月13日
 - v1.0.1 更新于2017年12月9日
 - v1.0.2 更新于2017年11月21日
+    - 针对弹窗是DialogFragment，因此当宿主activity异常重启时，会导致弹窗偶发性崩溃。用commitAllowingStateLoss替换commit方法
+    - 异常时调用onSaveInstanceState保存状态，重启时取出状态
+    - 当下载失败，异常，错误时，点击按钮重新创建下载任务
+
 
 
 #### 关于博客汇总链接

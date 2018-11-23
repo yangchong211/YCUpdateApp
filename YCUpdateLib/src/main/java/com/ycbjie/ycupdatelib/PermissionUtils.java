@@ -25,12 +25,9 @@ import java.util.Set;
  * <pre>
  *     @author yangchong
  *     blog  : https://github.com/yangchong211/YCBlogs
- *     time  : 2018/05/29
+ *     time  : 2017/05/29
  *     desc  : 权限相关工具类
  *     revise:
- *
- *     安装完成后删除apk  https://blog.csdn.net/qq_30574785/article/details/79024949
- *
  * </pre>
  */
 public final class PermissionUtils {

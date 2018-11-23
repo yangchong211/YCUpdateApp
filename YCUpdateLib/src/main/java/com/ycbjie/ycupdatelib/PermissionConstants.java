@@ -13,11 +13,10 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * <pre>
  *     @author yangchong
- *     blog  : www.pedaily.cn
- *     time  : 2018/05/29
- *     desc  : 权限相关常量
+ *     blog  : https://github.com/yangchong211
+ *     time  : 2017/05/29
+ *     desc  : 版本更新弹窗
  *     revise:
- *
  * </pre>
  */
 @SuppressLint("InlinedApi")

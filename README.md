@@ -125,7 +125,7 @@ public static void installNormal(Context context, String apkPath , String pathNa
      * ERROR            下载错误
      * PAUSED           下载暂停中，继续
     ```
-- 看到网上几个库，一般都是自己写的断点下载逻辑。由于前项目主要是实现版本更新的逻辑，时间人力有限，因此直接使用FileDownloader库，无比强大。
+- 关于断点下载逻辑。由于前项目主要是实现版本更新的逻辑，时间人力有限，因此直接使用FileDownloader库，无比强大。
 
 
 ### 4.效果展示

@@ -114,7 +114,18 @@ public static void installNormal(Context context, String apkPath , String pathNa
 
 ### 3.注意要点
 - 注意需要申请读写权限，如果你要使用，可以自定定义通知栏下载UI布局，可以自己设置弹窗UI。这里就不适用正式项目中的UI和图标，图标是使用别人的，请勿商用。
-
+- 针对8.0以后已经解决了通知栏不显示问题，[Notification封装库](https://github.com/yangchong211/YCNotification)，Notification通知栏用法介绍及部分源码解析，https://blog.csdn.net/m0_37700275/article/details/78745024
+- 目前针对下载中的状态，有很多种，这里我只是选用了几种主要的状态处理版本更新逻辑。关于下载更多逻辑，可以参考这个下载库：[FileDownloader
+](https://github.com/lingochamp/FileDownloader)
+    ```
+     * 下载状态
+     * START            开始下载
+     * UPLOADING.       下载中
+     * FINISH           下载完成，可以安装
+     * ERROR            下载错误
+     * PAUSED           下载暂停中，继续
+    ```
+- 看到网上几个库，一般都是自己写的断点下载逻辑。由于前项目主要是实现版本更新的逻辑，时间人力有限，因此直接使用FileDownloader库，无比强大。
 
 
 ### 4.效果展示

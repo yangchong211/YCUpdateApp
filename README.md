@@ -34,7 +34,7 @@
 
 ### 2.使用介绍
 #### 2.1 关于库导入
-- 在build.gradle中直接导入：compile 'cn.yc:YCUpdateLib:1.0.6'
+- 可以直接引入lib库
 
 
 #### 2.2 使用说明

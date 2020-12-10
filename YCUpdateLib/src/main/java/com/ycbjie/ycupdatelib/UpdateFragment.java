@@ -72,6 +72,7 @@ public class UpdateFragment extends BaseDialogFragment implements View.OnClickLi
      * @param apkName                           下载apk名称
      * @param desc                              更新文案
      * @param packageName                       包名
+     * @param appMd5                            安装包md5值，传null表示不校验
      */
     public static void showFragment(FragmentActivity activity, boolean isForceUpdate ,
                                     String apkUrl , String apkName , String desc,

@@ -34,84 +34,83 @@
 
 #### 2.2 使用说明
 - 代码如下所示，就是这么简单
-```
-//设置自定义下载文件路径
-UpdateUtils.APP_UPDATE_DOWN_APK_PATH = "apk" + File.separator + "downApk";
-String  desc = getResources().getString(R.string.update_content_info);
-/*
- * @param isForceUpdate             是否强制更新
- * @param desc                      更新文案
- * @param url                       下载链接
- * @param apkFileName               apk下载文件路径名称
- * @param packName                  包名
- */
-UpdateFragment.showFragment(MainActivity.this,
-        false,firstUrl,apkName,desc,BuildConfig.APPLICATION_ID);
-```
+    ```
+    //设置自定义下载文件路径
+    UpdateUtils.APP_UPDATE_DOWN_APK_PATH = "apk" + File.separator + "downApk";
+    String  desc = getResources().getString(R.string.update_content_info);
+    /**
+     * 版本更新
+     * @param isForceUpdate                     是否强制更新
+     * @param apkUrl                            下载链接
+     * @param apkName                           下载apk名称
+     * @param desc                              更新文案
+     * @param packageName                       包名
+     * @param appMd5                            安装包md5值，传null表示不校验
+     */
+    UpdateFragment.showFragment(MainActivity.this,
+                            false,firstUrl,apkName,desc,BuildConfig.APPLICATION_ID,"b291e935d3f5282355192f98306ab489");
+    ```
 
 #### 2.3 lib库中解决了代码中安装 APK文件异常问题【注意lib已经解决该问题】
 - 直接调用工具类UpdateUtils.installNormal方法
 - 关于在代码中安装 APK 文件，在 Android N 以后，为了安卓系统为了安全考虑，不能直接访问软件，需要使用 fileProvider 机制来访问、打开 APK 文件。里面if 语句，就是区分软件运行平台，来对 intent 设置不同的属性。
-
-```
-/**
- * 关于在代码中安装 APK 文件，在 Android N 以后，为了安卓系统为了安全考虑，不能直接访问软件
- * 需要使用 fileProvider 机制来访问、打开 APK 文件。
- * 普通安装
- * @param context                   上下文
- * @param apkPath                   path，文件路径
- * @param pathName                  你的包名
- */
-public static void installNormal(Context context, String apkPath , String pathName) {
-    if(apkPath==null || pathName==null){
-        return;
+    ```
+    /**
+     * 关于在代码中安装 APK 文件，在 Android N 以后，为了安卓系统为了安全考虑，不能直接访问软件
+     * 需要使用 fileProvider 机制来访问、打开 APK 文件。
+     * 普通安装
+     * @param context                   上下文
+     * @param apkPath                   path，文件路径
+     * @param pathName                  你的包名
+     */
+    public static void installNormal(Context context, String apkPath , String pathName) {
+        if(apkPath==null || pathName==null){
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        File apkFile = new File(apkPath);
+        // 由于没有在Activity环境下启动Activity,设置下面的标签
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //版本在7.0以上是不能直接通过uri访问的
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //参数1 上下文, 参数2 Provider主机地址 和配置文件中保持一致   参数3  共享的文件
+            Uri apkUri = FileProvider.getUriForFile(context, pathName+".fileProvider", apkFile);
+            //添加这一句表示对目标应用临时授权该Uri所代表的文件
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        } else {
+            Uri uri = Uri.fromFile(apkFile);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        }
+        context.startActivity(intent);
     }
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    File apkFile = new File(apkPath);
-    // 由于没有在Activity环境下启动Activity,设置下面的标签
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    //版本在7.0以上是不能直接通过uri访问的
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        //参数1 上下文, 参数2 Provider主机地址 和配置文件中保持一致   参数3  共享的文件
-        Uri apkUri = FileProvider.getUriForFile(context, pathName+".fileProvider", apkFile);
-        //添加这一句表示对目标应用临时授权该Uri所代表的文件
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-    } else {
-        Uri uri = Uri.fromFile(apkFile);
-        intent.setDataAndType(uri, "application/vnd.android.package-archive");
-    }
-    context.startActivity(intent);
-}
-```
+    ```
 
 - 清单文件添加代码如下所示：
-
-```
-<provider
-    android:name=".VersionFileProvider"
-    android:authorities="${applicationId}.provider"
-    android:exported="false"
-    android:grantUriPermissions="true">
-    <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/file_paths" />
-</provider>
-```
+    ```
+    <provider
+        android:name=".VersionFileProvider"
+        android:authorities="${applicationId}.provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths" />
+    </provider>
+    ```
 
 - 在res/xml下增加文件：file_paths.xml
-
-```
-<?xml version="1.0" encoding="utf-8"?>
-<paths>
-        <external-path
-            name="external_files"
-            path="." />
-        <root-path
-            name="root_path"
-            path="." />
-</paths>
-```
+    ```
+    <?xml version="1.0" encoding="utf-8"?>
+    <paths>
+            <external-path
+                name="external_files"
+                path="." />
+            <root-path
+                name="root_path"
+                path="." />
+    </paths>
+    ```
 
 
 ### 3.注意要点

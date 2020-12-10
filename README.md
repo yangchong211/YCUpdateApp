@@ -148,15 +148,6 @@ public static void installNormal(Context context, String apkPath , String pathNa
 ![image](https://upload-images.jianshu.io/upload_images/4432347-7100c8e5a455c3ee.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-#### 版本更新说明
-- v1.0.0 更新于2017年8月13日
-- v1.0.1 更新于2017年12月9日
-- v1.0.2 更新于2018年11月21日
-    - 针对弹窗是DialogFragment，因此当宿主activity异常重启时，会导致弹窗偶发性崩溃。用commitAllowingStateLoss替换commit方法
-    - 异常时调用onSaveInstanceState保存状态，重启时取出状态
-    - 当下载失败，异常，错误时，点击按钮重新创建下载任务
-
-
 
 #### 关于博客汇总链接
 - 1.[技术博客汇总](https://www.jianshu.com/p/614cb839182c)

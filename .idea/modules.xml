@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GitHub-YCUpdateApp.iml" filepath="$PROJECT_DIR$/.idea/modules/GitHub-YCUpdateApp.iml" group="YCUpdateApp" />
       <module fileurl="file://$PROJECT_DIR$/YCUpdateApp.iml" filepath="$PROJECT_DIR$/YCUpdateApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/YCUpdateApp-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/YCUpdateApp-app.iml" group="YCUpdateApp/app" />
       <module fileurl="file://$PROJECT_DIR$/YCUpdateLib/YCUpdateLib.iml" filepath="$PROJECT_DIR$/YCUpdateLib/YCUpdateLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/YCUpdateLib/cn.yc-YCUpdateLib.iml" filepath="$PROJECT_DIR$/.idea/modules/YCUpdateLib/cn.yc-YCUpdateLib.iml" group="YCUpdateApp/YCUpdateLib" />
     </modules>
   </component>
 </project>

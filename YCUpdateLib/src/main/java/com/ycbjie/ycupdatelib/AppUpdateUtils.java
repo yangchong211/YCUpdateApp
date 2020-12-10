@@ -2,6 +2,7 @@ package com.ycbjie.ycupdatelib;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -9,10 +10,12 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 /**
@@ -24,12 +27,13 @@ import java.util.ArrayList;
  *     revise:
  * </pre>
  */
-public class UpdateUtils {
+public final class AppUpdateUtils {
 
-
+    private static final String EXTERNAL_STORAGE_PERMISSION = "android.permission.WRITE_EXTERNAL_STORAGE";
     public static String APP_UPDATE_DOWN_APK_PATH = "apk" + File.separator + "downApk";
     private static String mApkName;
-    static String getLocalApkDownSavePath(String apkName){
+
+    public static String getLocalApkDownSavePath(String apkName){
         mApkName = apkName;
         String saveApkPath= APP_UPDATE_DOWN_APK_PATH+ File.separator;
         String sdPath = getInnerSDCardPath();
@@ -51,12 +55,29 @@ public class UpdateUtils {
         return saveApkPath;
     }
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static void clearDownload(){
-        if (mApkName!=null && mApkName.length()>0){
-            String localApkDownSavePath = getLocalApkDownSavePath(mApkName);
-            deleteFile(localApkDownSavePath);
+    public static String getUserApkDownSavePath(Context context,String apkName){
+        mApkName = apkName;
+        String saveApkPath= APP_UPDATE_DOWN_APK_PATH+ File.separator;
+        String sdPath = getRootDirPath(context);
+        String saveApkDirs = sdPath+File.separator+saveApkPath;
+        File file = new File(saveApkDirs);
+        //判断文件夹是否存在，如果不存在就创建，否则不创建
+        if (!file.exists()) {
+            //通过file的mkdirs()方法创建目录中包含却不存在的文件夹
+            //noinspection ResultOfMethodCallIgnored
+            file.mkdirs();
         }
+        saveApkPath = saveApkDirs + apkName+".apk";
+        return saveApkPath;
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static boolean clearDownload(Context context){
+        if (mApkName!=null && mApkName.length()>0){
+            String localApkDownSavePath = getUserApkDownSavePath(context,mApkName);
+            return deleteFile(localApkDownSavePath);
+        }
+        return false;
     }
 
     /**
@@ -128,6 +149,99 @@ public class UpdateUtils {
     }
 
 
+    /**
+     * 获取存储根目录路径
+     *
+     * @param context
+     * @return
+     */
+    public static String getRootDirPath(Context context) {
+        String rootPath = "";
+        if (hasExternalStoragePermission(context)
+                && Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File file = context.getExternalFilesDir("");
+            if (file != null && file.exists()) {
+                rootPath = file.getAbsolutePath();
+            } else {
+                File dataDir = new File(new File(Environment.getExternalStorageDirectory(), "Android"), "data");
+                File filesDir = new File(new File(dataDir, context.getPackageName()), "files");
+                if (!filesDir.exists()) {
+                    if (filesDir.mkdirs()) {
+                        rootPath = filesDir.getAbsolutePath();
+                    }
+                } else {
+                    rootPath = filesDir.getAbsolutePath();
+                }
+            }
+        }
+        if (TextUtils.isEmpty(rootPath)) {
+            rootPath = context.getFilesDir().getAbsolutePath();
+        }
+        return rootPath;
+    }
+
+    public static boolean hasExternalStoragePermission(Context context) {
+        int perm = context.checkCallingOrSelfPermission(EXTERNAL_STORAGE_PERMISSION);
+        return perm == PackageManager.PERMISSION_GRANTED;
+    }
+
+
+    /**
+     * @param file:要加密的文件
+     * @return MD5摘要码
+     * @funcion 对文件全文生成MD5摘要
+     */
+
+    public static String getMD5(File file) {
+        FileInputStream fis = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            fis = new FileInputStream(file);
+            byte[] buffer = new byte[2048];
+            int length = -1;
+            while ((length = fis.read(buffer)) != -1) {
+                md.update(buffer, 0, length);
+            }
+            byte[] b = md.digest();
+            return byteToHexString(b);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /**
+     * @param tmp 要转换的byte[]
+     * @return 十六进制字符串表示形式
+     * @function 把byte[]数组转换成十六进制字符串表示形式
+     */
+
+    private static String byteToHexString(byte[] tmp) {
+        char[] hexdigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+        char[] str = new char[16 * 2];
+        String s;
+        // 用字节表示就是 16 个字节
+        // 每个字节用 16 进制表示的话，使用两个字符，所以表示成 16 进制需要 32 个字符
+        // 比如一个字节为01011011，用十六进制字符来表示就是“5b”
+        int k = 0; // 表示转换结果中对应的字符位置
+        for (int i = 0; i < 16; i++) { // 从第一个字节开始，对 MD5 的每一个字节转换成 16 进制字符的转换
+            byte byte0 = tmp[i]; // 取第 i 个字节
+            str[k++] = hexdigits[byte0 >>> 4 & 0xf]; // 取字节中高 4 位的数字转换, >>> 为逻辑右移，将符号位一起右移
+            str[k++] = hexdigits[byte0 & 0xf]; // 取字节中低 4 位的数字转换
+        }
+        s = new String(str); // 换后的结果转换为字符串
+        return s;
+    }
+
 
     /*
      注意配置清单文件
@@ -148,7 +262,7 @@ public class UpdateUtils {
      * @param context                   上下文
      * @param apkPath                    path，文件路径
      */
-    static boolean installNormal(Context context, String apkPath , String application_id) {
+    protected static boolean installNormal(Context context, String apkPath , String application_id) {
         if(apkPath==null){
             return false;
         }

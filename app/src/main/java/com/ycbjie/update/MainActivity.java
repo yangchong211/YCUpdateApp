@@ -16,9 +16,8 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
 
     //这个是你的包名
-    private static final String apkName = "apk";
+    private static final String apkName = "yilu";
     private static final String firstUrl = "http://ucan.25pp.com/Wandoujia_web_seo_baidu_homepage.apk";
-    private static final String secondUrl = "http://img1.haowmc.com/hwmc/test/android_apk/2018101027122399.apk";
     private static final String url = "http://img1.haowmc.com/hwmc/test/android_";
     private static final String[] mPermission = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE};
@@ -62,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onGranted() {
 
                 }
+
                 @Override
                 public void onDenied() {
                     PermissionUtils.openAppSettings();
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //设置自定义下载文件路径
-                UpdateUtils.APP_UPDATE_DOWN_APK_PATH = "apk" + File.separator + "downApk";
+                AppUpdateUtils.APP_UPDATE_DOWN_APK_PATH = "apk" + File.separator + "downApk";
                 String  desc = getResources().getString(R.string.update_content_info);
                 /*
                  * @param isForceUpdate             是否强制更新
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                  * @param packName                  包名
                  */
                 UpdateFragment.showFragment(MainActivity.this,
-                        false,firstUrl,apkName,desc,BuildConfig.APPLICATION_ID);
+                        false,firstUrl,apkName,desc,BuildConfig.APPLICATION_ID,null);
             }
         });
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String  desc = getResources().getString(R.string.update_content_info1);
                 UpdateFragment.showFragment(MainActivity.this,
-                        true,firstUrl,apkName,desc, BuildConfig.APPLICATION_ID);
+                        true,firstUrl,apkName,desc, BuildConfig.APPLICATION_ID,null);
             }
         });
 
@@ -104,14 +104,55 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String  desc = getResources().getString(R.string.update_content_info1);
                 UpdateFragment.showFragment(MainActivity.this,
-                        false,url,apkName,desc, BuildConfig.APPLICATION_ID);
+                        false,url,apkName,desc, BuildConfig.APPLICATION_ID,null);
             }
         });
 
         findViewById(R.id.tv_4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UpdateUtils.clearDownload();
+                boolean b = AppUpdateUtils.clearDownload(MainActivity.this);
+                if (b){
+                    Toast.makeText(MainActivity.this,"清除数据成功",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this,"无数据",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        findViewById(R.id.tv_5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //设置自定义下载文件路径
+                AppUpdateUtils.APP_UPDATE_DOWN_APK_PATH = "apk" + File.separator + "downApk";
+                String  desc = getResources().getString(R.string.update_content_info);
+                /*
+                 * @param isForceUpdate             是否强制更新
+                 * @param desc                      更新文案
+                 * @param url                       下载链接
+                 * @param apkFileName               apk下载文件路径名称
+                 * @param packName                  包名
+                 */
+                UpdateFragment.showFragment(MainActivity.this,
+                        false,firstUrl,apkName,desc,BuildConfig.APPLICATION_ID,"3232");
+            }
+        });
+
+        findViewById(R.id.tv_6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //设置自定义下载文件路径
+                AppUpdateUtils.APP_UPDATE_DOWN_APK_PATH = "apk" + File.separator + "downApk";
+                String  desc = getResources().getString(R.string.update_content_info);
+                /*
+                 * @param isForceUpdate             是否强制更新
+                 * @param desc                      更新文案
+                 * @param url                       下载链接
+                 * @param apkFileName               apk下载文件路径名称
+                 * @param packName                  包名
+                 */
+                UpdateFragment.showFragment(MainActivity.this,
+                        false,firstUrl,apkName,desc,BuildConfig.APPLICATION_ID,"b291e935d3f5282355192f98306ab489");
             }
         });
     }

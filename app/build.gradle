@@ -23,4 +23,5 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
 //    compile project(path: ':YCUpdateLib')
     compile 'cn.yc:YCUpdateLib:1.0.7'
+    implementation 'com.liulishuo.filedownloader:library:1.7.5'
 }

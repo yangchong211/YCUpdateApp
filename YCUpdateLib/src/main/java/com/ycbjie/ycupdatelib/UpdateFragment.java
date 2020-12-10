@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -54,7 +55,7 @@ public class UpdateFragment extends BaseDialogFragment implements View.OnClickLi
 
     private static final String[] mPermission = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
     Manifest.permission.READ_EXTERNAL_STORAGE};
-    private int downloadStatus = AppUpdateUtils.DownloadStatus.START;
+    private static int downloadStatus = AppUpdateUtils.DownloadStatus.START;
 
     private FragmentActivity mActivity;
     private BaseDownloadTask downloadTask;
@@ -109,15 +110,27 @@ public class UpdateFragment extends BaseDialogFragment implements View.OnClickLi
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (outState != null) {
-            apkUrl = outState.getString("apk_url");
-            desc = outState.getString("desc");
-            apkName = outState.getString("apkName");
-            isForceUpdate = outState.getBoolean("isUpdate");
-            packageName = outState.getString("packageName");
-            appMd5 = outState.getString("appMd5");
+            outState.putString("apk_url",apkUrl);
+            outState.putString("desc",desc);
+            outState.putString("apkName",apkName);
+            outState.putBoolean("isUpdate",isForceUpdate);
+            outState.putString("packageName",packageName);
+            outState.putString("appMd5",appMd5);
         }
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            apkUrl = savedInstanceState.getString("apk_url");
+            desc = savedInstanceState.getString("desc");
+            apkName = savedInstanceState.getString("apkName");
+            isForceUpdate = savedInstanceState.getBoolean("isUpdate");
+            packageName = savedInstanceState.getString("packageName");
+            appMd5 = savedInstanceState.getString("appMd5");
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -252,6 +265,10 @@ public class UpdateFragment extends BaseDialogFragment implements View.OnClickLi
                     }
                     break;
                 case AppUpdateUtils.DownloadStatus.PAUSED:
+                    /*if (downloadTask != null) {
+                        downloadTask.start();
+                    }
+                    break;*/
                 case AppUpdateUtils.DownloadStatus.ERROR:
                     checkPermissionAndDownApk();
                     break;
